@@ -5,9 +5,12 @@
  * It sets up the server (express app), defines routes, and starts listening for incoming requests.
  */
 import express, { Application } from 'express';
-require('dotenv').config()
-const mongoose = require('mongoose')
+import dotenv from 'dotenv';
 
+const mongoose = require('mongoose')
+const userRoutes = require('./routes/user.ts')
+
+dotenv.config();
 const app: Application = express();
 
 // Log the requests being made 
@@ -20,11 +23,12 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 // Routes
+app.use('/api/user', userRoutes)
 app.get('/', (req, res) => {
     res.json({mssg: 'Welcome to the app'})
 })
 
-// connect to db
+// Connect to db
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     // Listen for requests only once we've connected to the db
