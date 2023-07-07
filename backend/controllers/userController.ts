@@ -10,7 +10,15 @@ const User = require('../models/userModel')
 
 // Login user
 const loginUser = async (req: Request, res: Response) => {
-    const username = req.body.username;
+    const { username, password } = req.body
+
+    try {
+        const user = await User.login(username, password)
+        res.status(200).json({ username, user }); 
+    } catch (error: any) {
+        res.status(400).json({ error: error.message })
+    }
+
     res.json({ message: `${username} has been logged in!` });
 }
 
