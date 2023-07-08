@@ -1,5 +1,16 @@
+import { Box, 
+    Button, 
+    Link, 
+    Text, 
+    Container,  
+    FormControl, 
+    FormLabel, 
+    Heading, 
+    Input, 
+    InputGroup, 
+    InputRightElement 
+} from "@chakra-ui/react"
 import React from "react"
-import { Box, Button, Link, Text, Container, useColorMode, FormControl, FormLabel, Heading, Input, InputGroup, InputRightElement } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "../ColorModeSwitcher"
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { Link as RouterLink } from 'react-router-dom';
@@ -7,7 +18,6 @@ import { Link as RouterLink } from 'react-router-dom';
 export const Signup = () => {
     // const [username, setUsername] = useState('')
     // const [password, setPassword] = useState('')
-    const { colorMode } = useColorMode();
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
 
