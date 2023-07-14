@@ -13,20 +13,20 @@ const userRoutes = require('./routes/user.ts')
 dotenv.config();
 const app: Application = express();
 
+// Middleware
+app.use(express.json());
+
 // Log the requests being made 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
 
-// Middleware
-app.use(express.json());
-
 // Routes
-app.use('/api/user', userRoutes)
 app.get('/', (req, res) => {
-    res.json({mssg: 'Welcome to the app'})
+  res.json({mssg: 'Welcome to the app'})
 })
+app.use('/api/user', userRoutes)
 
 // Connect to db
 mongoose.connect(process.env.MONGO_URI)

@@ -21,13 +21,13 @@ const loginUser = async (req: Request, res: Response) => {
     try {
         const user = await User.login(username, password)
         const token = createToken(user._id)
-
         res.status(200).json({ username, token }); 
     } catch (error: any) {
         res.status(400).json({ error: error.message })
     }
 
-    res.json({ message: `${username} has been logged in!` });
+    // Below code produces error: Cannot set headers after they are sent to the client
+    // res.json({ message: `${username} has been logged in!` });
 }
 
 // Sign up user
