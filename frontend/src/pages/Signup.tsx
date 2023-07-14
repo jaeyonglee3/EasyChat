@@ -16,16 +16,18 @@ import { useState } from "react"
 import { ColorModeSwitcher } from "../ColorModeSwitcher"
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { Link as RouterLink } from 'react-router-dom';
+import { useSignup } from "../hooks/useSignup"
 
 export const Signup = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const {signup, error, isLoading} = useSignup()
     const [show, setShow] = React.useState(false)
     const handleClick = () => setShow(!show)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
-        console.log(username, password)
+        await signup(username, password)
     }
 
     return (
@@ -67,9 +69,12 @@ export const Signup = () => {
                                 </InputRightElement>
                             </InputGroup>
 
-                            <Button rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='outline' type="submit" mt={7}>
+                            <Button disabled={isLoading} rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='outline' type="submit" mt={7}>
                                 Sign Up
                             </Button>
+
+                            {/* TODO: render an error if there is one. */}
+                            {error && <Text>{error}</Text>}
                         </FormControl>
                     </form>
 
