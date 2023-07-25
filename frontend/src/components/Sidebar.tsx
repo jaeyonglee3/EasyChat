@@ -40,7 +40,7 @@ export const Sidebar = () => {
                         </Heading>
                         <HStack>
                             <Stack direction='row' spacing={4}>
-                                <Button onClick={() => logout()} leftIcon={<BiLogOutCircle />} >
+                                <Button onClick={() => logout()} leftIcon={<BiLogOutCircle />} colorScheme='teal'>
                                     Logout
                                 </Button>
                             </Stack>
