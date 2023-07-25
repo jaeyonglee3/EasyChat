@@ -6,7 +6,9 @@
 
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import validator from "validator";
+
+// Import for password validation
+// import validator from "validator";
 
 const Schema = mongoose.Schema
 
@@ -22,7 +24,7 @@ const userSchema = new Schema({
     }
 })
 
-// Static sign up method
+// Static sign up method (used by MongoDB)
 userSchema.statics.signup = async function (username: string, password: string) {
     const exists = await this.findOne({ username })
 
@@ -47,7 +49,7 @@ userSchema.statics.signup = async function (username: string, password: string) 
     }
 }
 
-// Static login method
+// Static login method (used by MongoDB)
 userSchema.statics.login = async function (username: string, password: string) {
     if (!username || !password) {
         const missingField = !username ? "username" : "password";
@@ -61,11 +63,22 @@ userSchema.statics.login = async function (username: string, password: string) {
 
     // Try to match password with the one in the database
     const match = await bcrypt.compare(password, user.password)
-    
+
     if (match) {
         return user
     } else {
         throw Error('Incorrect password!')
+    }
+}
+
+// Static user account delete method (used by MongoDB)
+userSchema.statics.deleteAccount = async function (username) {
+    try {
+      const user = await this.findOne({ username })
+      const deletedUser = await this.findByIdAndDelete(user);
+      return deletedUser;
+    } catch (error) {
+      throw new Error('Account deletion failed');
     }
 }
 

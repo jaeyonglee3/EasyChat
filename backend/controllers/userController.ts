@@ -9,7 +9,6 @@ import { Request, Response } from 'express';
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
-// Create token function
 const createToken = (_id: string) => {
     return jwt.sign({_id: _id}, process.env.SECRET, { expiresIn: '3d' })
 }
@@ -44,4 +43,16 @@ const signupUser = async (req: Request, res: Response) => {
     }
 }
 
-module.exports = { loginUser, signupUser }
+// Delete user account
+const deleteUserAccount = async (req: Request, res: Response) => {
+    const { username } = req.body
+
+    try {
+        await User.deleteAccount(username)
+        res.status(200).json({ username }); 
+    } catch (error: any) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+module.exports = { loginUser, signupUser, deleteUserAccount }

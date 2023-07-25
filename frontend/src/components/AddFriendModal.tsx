@@ -28,7 +28,7 @@ export function AddFriendModal() {
             <ModalFooter>
               <Button mr={3} onClick={onClose}>Cancel</Button>
               <Button colorScheme='teal'>
-                Add Friend
+                + Add Friend
               </Button>
             </ModalFooter>
           </ModalContent>
