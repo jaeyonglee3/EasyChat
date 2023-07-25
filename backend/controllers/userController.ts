@@ -55,4 +55,16 @@ const deleteUserAccount = async (req: Request, res: Response) => {
     }
 }
 
-module.exports = { loginUser, signupUser, deleteUserAccount }
+// Add a friend
+const addFriend = async (req: Request, res: Response) => {
+    const { username, friendUsername } = req.body
+
+    try {
+        await User.addFriend(username, friendUsername)
+        res.status(200).json({ friendUsername }); 
+    } catch (error: any) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+module.exports = { loginUser, signupUser, deleteUserAccount, addFriend }

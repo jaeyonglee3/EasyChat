@@ -12,6 +12,7 @@ import bcrypt from "bcrypt";
 
 const Schema = mongoose.Schema
 
+// Define the attributes that each user will have
 const userSchema = new Schema({
     username: {
         type: String,
@@ -21,7 +22,11 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 })
 
 // Static sign up method (used by MongoDB)
@@ -73,13 +78,35 @@ userSchema.statics.login = async function (username: string, password: string) {
 
 // Static user account delete method (used by MongoDB)
 userSchema.statics.deleteAccount = async function (username) {
-    try {
-      const user = await this.findOne({ username })
-      const deletedUser = await this.findByIdAndDelete(user);
-      return deletedUser;
-    } catch (error) {
-      throw new Error('Account deletion failed');
+    const user = await this.findOne({ username })
+    if (!user) {
+        throw Error("Username not found.")
     }
+    await this.findByIdAndDelete(user);
+}
+
+// Static add friend method (used by MongoDB)
+userSchema.statics.addFriend = async function (username, friendUsername) {
+    const user = await this.findOne({ username: username })
+    console.log(user)
+    if (!user) {
+        throw Error("Username not found.")
+    }
+
+    const userToAdd = await this.findOne({ username: friendUsername })
+    console.log(userToAdd)
+    if (!userToAdd) {
+        throw Error("Username does not exist.")
+    }
+
+    if (user.friends.includes(userToAdd._id)) {
+        throw Error("User is already a friend.")
+    }
+
+    user.friends.push(userToAdd)
+    userToAdd.friends.push(user)
+    await user.save()
+    await userToAdd.save()
 }
 
 module.exports = mongoose.model('User', userSchema)
