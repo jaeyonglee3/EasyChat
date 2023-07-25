@@ -57,11 +57,11 @@ const deleteUserAccount = async (req: Request, res: Response) => {
 
 // Add a friend
 const addFriend = async (req: Request, res: Response) => {
-    const { username, friendUsername } = req.body
+    const { currUsername, friendToAdd } = req.body
 
     try {
-        await User.addFriend(username, friendUsername)
-        res.status(200).json({ friendUsername }); 
+        await User.addFriend(currUsername, friendToAdd)
+        res.status(200).json({ friendToAdd }); 
     } catch (error: any) {
         res.status(400).json({ error: error.message });
     }

@@ -1,10 +1,12 @@
 import { useAuthContext } from "./useAuthContext"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export const useSignup = () => {
     const { dispatch } = useAuthContext()
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const navigate = useNavigate() 
 
     const signup = async (username: string, password: string) => {
         setIsLoading(true)
@@ -30,6 +32,9 @@ export const useSignup = () => {
             // update auth context for the react app
             dispatch({type: 'LOGIN', payload: json})
             setIsLoading(false)
+
+            // Send the user to the /home route
+            navigate('/home')
         }
     }
 
