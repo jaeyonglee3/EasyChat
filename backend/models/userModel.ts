@@ -27,6 +27,26 @@ const userSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     }],
+    conversations: [{
+        withUser: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        messages: [{
+          sender: {
+            type: String,
+            required: true,
+          },
+          content: {
+            type: String,
+            required: true,
+          },
+          timestamp: {
+            type: Date,
+            default: Date.now,
+          },
+        }],
+    }],
 })
 
 // Static sign up method (used by MongoDB)
