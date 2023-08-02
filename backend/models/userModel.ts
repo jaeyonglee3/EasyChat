@@ -135,7 +135,20 @@ userSchema.statics.getFriends = async function (currUsername) {
         throw Error("Username not found.")
     }
 
-    return user.friends
+    // Simply return user.friends for array of object IDs
+    // return user.friends
+
+    const friendUserIds = user.friends; 
+    const friendUserPromises = friendUserIds.map((friend: any) => {
+        return this.findById(friend);
+    });
+
+    const friendUsers = await Promise.all(friendUserPromises);  // Ensure all promises are resolved
+    const friendUsernames = friendUsers.map((friendUser: any) => {
+        return friendUser.username;
+    });
+
+    return friendUsernames;
 }
 
 module.exports = mongoose.model('User', userSchema)

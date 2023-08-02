@@ -69,7 +69,7 @@ const addFriend = async (req: Request, res: Response) => {
 
 // Get a list of current user's friends
 const getFriends = async (req: Request, res: Response) => {
-    const { currUsername } = req.body
+    const currUsername = req.query.username
 
     try {
         const friends = await User.getFriends(currUsername)
