@@ -1,16 +1,23 @@
-import { Heading, Button, Box, Divider, useColorMode, VStack, Flex, Icon, HStack, Spacer, Stack, Text } from "@chakra-ui/react"
+import { Heading, Button, Box, Divider, useColorMode, VStack, Flex, Icon, HStack, Spacer, Stack } from "@chakra-ui/react"
 import { useLogout } from "../hooks/useLogout"
 import { ColorModeSwitcher } from "../ColorModeSwitcher"
 import AddFriendModal from "./AddFriendModal"
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { CgProfile } from 'react-icons/cg'
 import { BiLogOutCircle } from 'react-icons/bi'
+
+import { useFriendContext } from '../context/FriendContext';
 
 export default function Sidebar() {
     const [friends, setFriends] = useState([]);
     let username = ""
     const currUser = localStorage.getItem("user");
     const { logout } = useLogout()
+
+    const { setSelectedFriend } = useFriendContext();
+    const handleFriendClick = (friend: string) => {
+        setSelectedFriend(friend);
+    };
 
     if (currUser) {
         const user = JSON.parse(currUser);
@@ -50,9 +57,9 @@ export default function Sidebar() {
                     <VStack flex="1" justifyContent="flex-end"> 
 
                         <Box bg={colour2} flex="1" w="100%" maxHeight="75vh" overflowY="auto" borderRadius="10px" p="15px" alignContent="center">
-                            <VStack align="stretch"> {/* Wrap the Box with VStack */}
+                            <VStack align="stretch"> 
                                 {Array.isArray(friends) && friends.map((friend, index) => (
-                                    <Button key={index} borderRadius="10px">{friend}</Button> 
+                                    <Button key={index} borderRadius="10px" onClick={() => handleFriendClick(friend)}>{friend}</Button> 
                                 ))}
                             </VStack>
                         </Box>
