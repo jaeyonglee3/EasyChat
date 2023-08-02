@@ -108,7 +108,6 @@ userSchema.statics.deleteAccount = async function (username) {
 // Static add friend method (used by MongoDB)
 userSchema.statics.addFriend = async function (currUsername, friendToAdd) {
     const user = await this.findOne({ username: currUsername })
-    console.log("the current logged in user is ", user)
     if (!user) {
         throw Error("Username not found.")
     }
@@ -127,6 +126,16 @@ userSchema.statics.addFriend = async function (currUsername, friendToAdd) {
     userToAdd.friends.push(user)
     await user.save()
     await userToAdd.save()
+}
+
+// Static get friends method (used by MongoDB)
+userSchema.statics.getFriends = async function (currUsername) {
+    const user = await this.findOne({ username: currUsername })
+    if (!user) {
+        throw Error("Username not found.")
+    }
+
+    return user.friends
 }
 
 module.exports = mongoose.model('User', userSchema)

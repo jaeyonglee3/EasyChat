@@ -67,4 +67,16 @@ const addFriend = async (req: Request, res: Response) => {
     }
 }
 
-module.exports = { loginUser, signupUser, deleteUserAccount, addFriend }
+// Get a list of current user's friends
+const getFriends = async (req: Request, res: Response) => {
+    const { currUsername } = req.body
+
+    try {
+        const friends = await User.getFriends(currUsername)
+        res.status(200).json({ friends }); 
+    } catch (error: any) {
+        res.status(400).json({ error: error.message });
+    }
+}
+
+module.exports = { loginUser, signupUser, deleteUserAccount, addFriend, getFriends }

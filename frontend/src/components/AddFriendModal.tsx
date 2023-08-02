@@ -1,7 +1,7 @@
 import { Button, Modal, ModalOverlay, Text, ModalContent, ModalHeader, FormControl, ModalFooter, ModalBody, ModalCloseButton, FormLabel, Input, useDisclosure } from "@chakra-ui/react"
 import { useState, useRef } from "react";
 
-export function AddFriendModal() {
+export default function AddFriendModal() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [friendToAdd, setfriendToAdd] = useState("");
     const [success, setSuccess] = useState(false);

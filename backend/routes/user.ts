@@ -8,7 +8,7 @@
 import express from 'express';
 
 const router = express.Router()
-const { loginUser, signupUser, deleteUserAccount, addFriend } = require('../controllers/userController')
+const { loginUser, signupUser, deleteUserAccount, addFriend, getFriends } = require('../controllers/userController')
 
 // Login route
 router.post('/login', loginUser)
@@ -21,5 +21,8 @@ router.delete('/delete-account', deleteUserAccount)
 
 // Add a friend route
 router.patch('/add-friend', addFriend)
+
+// Get user's friends route
+router.get('/get-friends', getFriends)
 
 module.exports = router
