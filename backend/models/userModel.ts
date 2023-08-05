@@ -1,7 +1,7 @@
 /**
  * userModel.ts
  * 
- * This file defines the structure for user documents that will be saved in the db.
+ * This file defines the structure for user documents that will be saved in the users collection.
  */
 
 import mongoose from "mongoose";
@@ -26,26 +26,6 @@ const userSchema = new Schema({
     friends: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-    }],
-    conversations: [{
-        withUser: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User',
-        },
-        messages: [{
-          sender: {
-            type: String,
-            required: true,
-          },
-          content: {
-            type: String,
-            required: true,
-          },
-          timestamp: {
-            type: Date,
-            default: Date.now,
-          },
-        }],
     }],
 })
 
