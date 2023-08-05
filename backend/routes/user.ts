@@ -1,7 +1,7 @@
 /**
  * user.ts
  * 
- * This file defines API routes for user login and sign-ups. 
+ * This file defines API routes for all user related requests.
  * These routes handle incoming HTTP requests from the frontend and interact with the corresponding controller functions to perform user authentication and registration. 
  */
 
