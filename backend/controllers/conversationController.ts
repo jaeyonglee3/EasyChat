@@ -37,11 +37,11 @@ const getConversationHistory = async (req: Request, res: Response) => {
     const participant2 = req.query.participant2
 
     try {
-      const conversationId = await Conversation.getConversation(participant1, participant2);
-      res.status(200).json({ conversationId })
+      const messagesAndId = await Conversation.getConversation(participant1, participant2);
+      res.status(200).json(messagesAndId)
     } catch (error) {
       res.status(500).json({ error: 'Internal server error' });
     }
   };
 
-  module.exports = { createConversation, sendMessage, getConversationHistory }
+module.exports = { createConversation, sendMessage, getConversationHistory }

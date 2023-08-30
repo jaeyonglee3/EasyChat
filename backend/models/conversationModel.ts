@@ -72,7 +72,9 @@ conversationSchema.statics.getConversation = async function (participant1: Strin
         return ""
     }
 
-    return conversation._id;
+    const id = conversation._id
+    const messages = conversation.messages
+    return ({ id, messages });
 }
 
 module.exports = mongoose.model('Conversation', conversationSchema)
