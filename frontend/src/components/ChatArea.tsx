@@ -21,16 +21,30 @@ const ChatArea = () => {
   const [convo, setCurrConvo] = useState<Conversation | null>(null);
   const [message, setMessage] = useState('');
   const socket = useSocket();
+  const {getConvo, error, isLoading} = useGetConvo()
+  const currUser = localStorage.getItem("user");
   const convoContainerRef = useRef<HTMLDivElement | null>(null);
 
   let currUsername = ""
-  const currUser = localStorage.getItem("user");
   if (currUser) {
       const user = JSON.parse(currUser);
       currUsername = user.username;
   }
 
-  const {getConvo, error, isLoading} = useGetConvo()
+  const formatDate = (dateString: any) => {
+    const formattedDate = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+  
+    return formattedDate.toLocaleString("en-US", options);
+  };  
+
 
   const { selectedFriend } = useFriendContext();
 
@@ -50,6 +64,7 @@ const ChatArea = () => {
       };
       fetchConvo();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFriend]); 
   
   useEffect(() => {
@@ -113,7 +128,16 @@ const ChatArea = () => {
           </Heading>
 
           {/* As a test for now, display the conversation ID under the friend's name */}
-          <Box h="100%"> test {convo && convo.id} {error && <Text>{error}</Text>} </Box>
+          <Box h="100%">
+            {convo && (
+              <>
+                Last chat:&nbsp;
+                {formatDate(convo.messages[convo.messages.length - 1].timestamp)}
+                {error && <Text>{error}</Text>}
+              </>
+            )}
+          </Box>
+
 
           {/* Render messages here */}
           <Flex flex="1" flexDirection="column" justify="flex-end">
@@ -138,7 +162,6 @@ const ChatArea = () => {
                 ))}
             </Box>
           </Flex>
-          
           
           <Flex flex="1" flexDirection="column" justify="flex-end" mt="15px">
             <FormControl>

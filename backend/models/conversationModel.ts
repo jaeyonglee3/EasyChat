@@ -7,11 +7,6 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
-// participants: [{
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'User',
-// }],
-
 // Define the attributes that each conversation will have
 // Participants field is an array of ObjectIds that references documents from the User collection
 const conversationSchema = new Schema({
@@ -31,13 +26,6 @@ const conversationSchema = new Schema({
         },
     }]
 })
-
-// Define the User interface representing the user document
-// interface User extends Document {
-//     username: string;
-//     password: string;
-//     friends: mongoose.Types.ObjectId[]; // Array of ObjectIds referencing User documents
-//   }
 
 // Static create new conversation method (used by MongoDB)
 conversationSchema.statics.createConversation = async function (participant1: String, participant2: String) {

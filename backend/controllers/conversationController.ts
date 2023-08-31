@@ -4,9 +4,9 @@
  * This file contains the controller functions for all conversation-related operations.
  */
 
-import { io } from '../server';
 import { Request, Response } from 'express';
 import { Socket } from 'socket.io';
+
 const Conversation = require('../models/conversationModel')
 
 type MessageData = {
@@ -14,6 +14,18 @@ type MessageData = {
     sender: string;
     content: string;
     timestamp: Date;
+};
+
+// Send a message
+export const sendMessage = async (socket: Socket, messageData: MessageData) => {
+    const { conversationId, sender, content, timestamp } = messageData;
+
+    try {
+        await Conversation.sendMessage(conversationId, sender, content, timestamp);
+        socket.to(conversationId).emit('message', { sender, content, timestamp });
+    } catch (error: any) {
+        console.log('send message error')
+    }
 };
 
 // Create a conversation
@@ -27,34 +39,6 @@ const createConversation = async (req: Request, res: Response) => {
         res.status(400).json({ error: error.message });
     }
 };
-
-// Send a message
-// export const sendMessage = async (req: Request, res: Response) => {
-//     const { conversationId, sender, content, timestamp } = req.body
-
-//     try {
-//         socket.on("details", (...args) => {
-//             // ...
-//           });
-//         await Conversation.sendMessage(conversationId, sender, content, timestamp)
-//         io.to(conversationId).emit('message', { sender, content, timestamp });
-//         res.status(200).json({ content }); 
-//     } catch (error: any) {
-//         res.status(400).json({ error: error.message });
-//     }
-// };
-
-export const sendMessage = async (socket: Socket, messageData: MessageData) => {
-    const { conversationId, sender, content, timestamp } = messageData;
-
-    try {
-        await Conversation.sendMessage(conversationId, sender, content, timestamp);
-        socket.to(conversationId).emit('message', { sender, content, timestamp });
-    } catch (error: any) {
-        console.log('send message error')
-    }
-};
-
 
 // Get conversation history
 const getConversationHistory = async (req: Request, res: Response) => {

@@ -1,20 +1,4 @@
-// import { useEffect, useState } from 'react';
-// import io from 'socket.io-client';
-
-// const SOCKET_SERVER_URL = 'http://localhost:3001';
-
-// export const useSocket = () => {
-//   const socket = io(SOCKET_SERVER_URL);
-//   socket.connect();
-
-//   useEffect(() => {
-//     return () => {
-//       socket.disconnect();
-//     };
-//   }, []);
-
-//   return socket;
-// };
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { useEffect, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
