@@ -20,17 +20,18 @@ interface Conversation {
 const ChatArea = () => {
   const [convo, setCurrConvo] = useState<Conversation | null>(null);
   const [message, setMessage] = useState('');
-  const socket = useSocket();
-  const {getConvo, error, isLoading} = useGetConvo()
-  const currUser = localStorage.getItem("user");
   const convoContainerRef = useRef<HTMLDivElement | null>(null);
+  const {getConvo, error, isLoading} = useGetConvo()
+  const { selectedFriend } = useFriendContext();
+  const socket = useSocket();
+  const currUser = localStorage.getItem("user");
 
   let currUsername = ""
   if (currUser) {
       const user = JSON.parse(currUser);
       currUsername = user.username;
-  }
-
+    }
+    
   const formatDate = (dateString: any) => {
     const formattedDate = new Date(dateString);
     const options: Intl.DateTimeFormatOptions = {
@@ -41,12 +42,24 @@ const ChatArea = () => {
       minute: "numeric",
       hour12: true,
     };
-  
+    
     return formattedDate.toLocaleString("en-US", options);
   };  
+  
+  const handleSendMessage = () => {
+    if (message.trim() === '') return; 
 
+    const messageData = {
+      sender: currUsername, 
+      content: message,
+      timestamp: new Date(),
+      conversationId: convo?.id, 
+    };
 
-  const { selectedFriend } = useFriendContext();
+    socket.emit('message', messageData);
+    console.log(messageData.content)
+    setMessage(''); 
+  };
 
   useEffect(() => {
     if (selectedFriend !== null) {
@@ -95,21 +108,6 @@ const ChatArea = () => {
     }
   }, [convo]);
 
-  const handleSendMessage = () => {
-    if (message.trim() === '') return; 
-
-    const messageData = {
-      sender: currUsername, 
-      content: message,
-      timestamp: new Date(),
-      conversationId: convo?.id, 
-    };
-
-    socket.emit('message', messageData);
-    console.log(messageData.content)
-    setMessage(''); 
-  }
-
   // const { colorMode } = useColorMode();
   // const colour1 = colorMode === "light" ? "gray.200" : "gray.800";
 
@@ -137,7 +135,6 @@ const ChatArea = () => {
               </>
             )}
           </Box>
-
 
           {/* Render messages here */}
           <Flex flex="1" flexDirection="column" justify="flex-end">
