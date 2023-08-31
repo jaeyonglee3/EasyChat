@@ -13,7 +13,7 @@ export const useGetConvo = () => {
             headers: {'Content-Type': 'application/json'},
         })
 
-        const json = await response.json()  // will either return info w/ JWT or an error message if unsucessful
+        const json = await response.json() 
 
         if (!response.ok) {
             setError(json.error)
