@@ -46,8 +46,9 @@ const ChatArea = () => {
     return formattedDate.toLocaleString("en-US", options);
   };  
   
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (message.trim() === '') return; 
+    console.log("this is it: ", convo)
 
     const messageData = {
       sender: currUsername, 
@@ -56,32 +57,49 @@ const ChatArea = () => {
       conversationId: convo?.id, 
     };
 
-    socket.emit('message', messageData);
-    console.log(messageData.content)
+    if (convo !== null) {
+      socket.emit('message', messageData);
+      console.log(messageData.content)
+    } else {
+      console.log("conversation is null")
+      // const response = await fetch('/api/conversation/create-conversation', {
+      //   method: 'POST',
+      //   headers: {'Content-Type': 'application/json'},
+      //   body: JSON.stringify({currUsername, selectedFriend})
+      // })
+      // const json = await response.json()
+
+      // if (!response.ok) {
+      //   console.log(json.error)
+      // } else {
+      //   fetchConvo()
+      // }
+    }
+
     setMessage(''); 
   };
 
+  const fetchConvo = async () => {
+    try {
+      const conversation = await getConvo(currUsername, selectedFriend!);
+      if (conversation) {
+        const parsedConversation = JSON.parse(conversation);
+        setCurrConvo(parsedConversation);
+        socket.emit('joinRoom', parsedConversation.id); 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     if (selectedFriend !== null) {
-      const fetchConvo = async () => {
-        try {
-          const conversation = await getConvo(currUsername, selectedFriend);
-          if (conversation) {
-            const parsedConversation = JSON.parse(conversation);
-            setCurrConvo(parsedConversation);
-            socket.emit('joinRoom', parsedConversation.id); 
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      };
       fetchConvo();
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFriend]); 
   
   useEffect(() => {
-    console.log('here')
     if (socket) {
       socket.on('message', (messageData) => {
         const newMessage = {
@@ -125,12 +143,11 @@ const ChatArea = () => {
             </Flex>
           </Heading>
 
-          {/* As a test for now, display the conversation ID under the friend's name */}
           <Box h="100%">
             {convo && (
               <>
                 Last chat:&nbsp;
-                {formatDate(convo.messages[convo.messages.length - 1].timestamp)}
+                {convo.messages.length !== 0 && formatDate(convo.messages[convo.messages.length - 1].timestamp)}
                 {error && <Text>{error}</Text>}
               </>
             )}

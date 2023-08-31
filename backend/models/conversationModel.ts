@@ -57,7 +57,7 @@ conversationSchema.statics.getConversation = async function (participant1: Strin
     });
 
     if (!conversation) {
-        return ""
+        return null
     }
 
     const id = conversation._id

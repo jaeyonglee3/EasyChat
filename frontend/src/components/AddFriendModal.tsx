@@ -36,6 +36,14 @@ export default function AddFriendModal() {
       if (!response.ok) {
         setError(json.error)
       } else {
+        await fetch('/api/conversation/create-conversation', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ 
+            participant1: currUsername,
+            participant2: friendToAdd 
+          })
+        })
         setError(null);
         setSuccess(true);
         setfriendToAdd("");
