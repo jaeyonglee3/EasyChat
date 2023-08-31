@@ -68,7 +68,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Jaeyong Lee - jaeyong.lee@mail.utoronto.ca
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/jaeyonglee3/EasyChat)
+Project Link: [https://github.com/jaeyonglee3/EasyChat](https://github.com/jaeyonglee3/EasyChat)
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
