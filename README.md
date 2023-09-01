@@ -64,7 +64,7 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm install
    ```
-3. CD into the backend folder and run the backend Express.js server 
+3. CD into the backend folder and run the backend Express.js server using nodemon
    ```sh
    nodemon server.ts
    ```
