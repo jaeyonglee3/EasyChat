@@ -15,8 +15,24 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+<p align="center">
+  <img width="49%" alt="image" src="https://github.com/jaeyonglee3/EasyChat/assets/73498725/1fffa0da-79b4-4c05-a70e-492819b02f1e">
+  <img width="49%" alt="image" src="https://github.com/jaeyonglee3/EasyChat/assets/73498725/593f9d51-40ee-4e49-a4ba-71c0b37a56be">
+</p>
+
+<p align="center">
+  <img width="49%" alt="image" src="https://github.com/jaeyonglee3/EasyChat/assets/73498725/d324683c-c24b-421b-a31d-a3b2f36fa6f9">
+  <img width="49%" alt="image" src="https://github.com/jaeyonglee3/EasyChat/assets/73498725/ef869502-73e0-48e3-930c-97a31efc300b">
+</p>
+
+<p align="center">
+  <img width="60%" alt="image" src="https://github.com/jaeyonglee3/EasyChat/assets/73498725/6afc8211-24d7-4863-a73e-81aadcd40958">
+</p>
+
+
+
 EasyChat is a complete and comprehensive online chatting app that makes online messaging seamless, quick, and easy. It features:
-* A clean, modern, and easy to use user interface built using Chakra UI.
+* A modern and easy to use user interface with light and dark modes built using Chakra UI.
 * Reliable and persistant real-time messaging thanks to Socket.IO.
 * A secure login system with custom usernames, JWT authentication, and password strength checking.
 
@@ -52,7 +68,7 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    nodemon server.ts
    ```
-4. CD into the frontend folder from another terminal and start the React app
+4. CD into the frontend folder from another terminal and start the React app, which you can access at http://localhost:3000/home once up and running
    ```sh
    npm start
    ```
