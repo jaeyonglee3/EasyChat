@@ -72,7 +72,7 @@ export default function Sidebar() {
                         </Heading>
                         <HStack>
                             <Stack direction='row' spacing={4}>
-                                <Button onClick={() => logout()} leftIcon={<BiLogOutCircle />} colorScheme='teal'>
+                                <Button onClick={() => logout()} leftIcon={<BiLogOutCircle />} backgroundColor='cyan.300' color="black">
                                     Logout
                                 </Button>
                             </Stack>

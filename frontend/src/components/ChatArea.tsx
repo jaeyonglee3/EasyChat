@@ -161,7 +161,7 @@ const ChatArea = () => {
                   <Flex flexDirection="row" justifyContent={message.sender === currUsername ? "flex-end" : "flex-start"}>
                     <Box
                       key={index}
-                      bg={message.sender === currUsername ? "teal.400" : "gray.200"}
+                      bg={message.sender === currUsername ? "cyan.300" : "gray.200"}
                       // color={message.sender === currUsername ? "white" : "black"}
                       color="black"
                       borderRadius="10px"
@@ -190,7 +190,7 @@ const ChatArea = () => {
                 }
               }}
             />
-              <Button disabled={isLoading} leftIcon={<AiOutlineSend />} colorScheme='teal' ml="10px" variant="outline" onClick={handleSendMessage}>
+              <Button disabled={isLoading} leftIcon={<AiOutlineSend />} color='black' backgroundColor="cyan.300" ml="10px" variant="outline" onClick={handleSendMessage}>
                 Send
               </Button>
             </FormControl>

@@ -81,7 +81,7 @@ export default function AddFriendModal() {
   
             <ModalFooter>
               <Button mr={3} onClick={onModalClose}>Close</Button>
-              <Button colorScheme='teal' onClick={handleSubmit}>
+              <Button color="black" backgroundColor="cyan.300" onClick={handleSubmit}>
                 + Add Friend
               </Button>
             </ModalFooter>
