@@ -33,7 +33,7 @@
 
 EasyChat is a complete and comprehensive online chatting app that makes online messaging seamless, quick, and easy. It features:
 * A modern and easy to use user interface with light and dark modes built using Chakra UI.
-* Reliable and persistant real-time messaging thanks to Socket.IO.
+* Reliable real-time messaging (bidirectional communication between the server and connected clients) thanks to Socket.IO integration.
 * A secure login system with custom usernames, JWT authentication, and password strength checking.
 
 ## Built with
