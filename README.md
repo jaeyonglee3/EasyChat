@@ -45,33 +45,6 @@ EasyChat is a complete and comprehensive online chatting app that makes online m
 * Chakra UI
 * Socket.IO
 
-<!-- GETTING STARTED -->
-## Getting Started
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-1. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. CD into the backend folder and run the backend Express.js server using nodemon
-   ```sh
-   nodemon server.ts
-   ```
-4. CD into the frontend folder from another terminal and start the React app, which you can access at http://localhost:3000/home once up and running
-   ```sh
-   npm start
-   ```
 
 <!-- LICENSE -->
 ## License
