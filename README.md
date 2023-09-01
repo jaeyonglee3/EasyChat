@@ -7,7 +7,7 @@
 
   <h1 align="center">EasyChat</h1>
 
-  <p align="left">
+  <p align="center">
     A full stack online chatting web application built using Typescript, Chakra UI and the MERN stack.
   </p>
 </div>
