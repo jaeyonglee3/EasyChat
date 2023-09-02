@@ -41,7 +41,7 @@ EasyChat is a complete and comprehensive online chatting app that makes online m
 * Express.js
 * React.js
 * Node.js
-* Typescript
+* TypeScript
 * Chakra UI
 * Socket.IO
 
